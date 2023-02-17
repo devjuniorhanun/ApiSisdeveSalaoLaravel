@@ -17,8 +17,8 @@ class CreateServicosTable extends Migration
 
         Schema::create('servicos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('companhia_id')->constrained();
-            $table->foreignId('funcionario_id')->constrained();
+            $table->unsignedBigInteger('companhia_id')->unsigned();
+            $table->unsignedBigInteger('funcionario_id')->unsigned();
             $table->string('nome_servico')->nullable();
             $table->double('valor', 10, 2)->nullable();
             $table->enum('status', ["ATIVO","DESATIVADO"]);

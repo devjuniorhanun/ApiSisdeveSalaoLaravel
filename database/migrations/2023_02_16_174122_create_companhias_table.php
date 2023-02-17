@@ -17,7 +17,6 @@ class CreateCompanhiasTable extends Migration
 
         Schema::create('companhias', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('uuid');
             $table->string('nome')->nullable()->unique();
             $table->string('latitude')->nullable();
             $table->string('longitute')->nullable();

@@ -24,16 +24,13 @@ class CompanhiaStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'empresa_id' => ['required', 'integer', 'exists:empresas,id'],
-            'uuid' => ['required'],
             'nome' => ['string', 'unique:companhias,nome'],
             'latitude' => ['string'],
             'longitute' => ['string'],
             'telefone' => ['string'],
             'logo' => ['string'],
             'social_link' => ['string'],
-            'status' => ['required', 'in:ATIVA,DESATIVADA'],
-            'softdeletes' => ['required'],
+            'status' => ['required'],
         ];
     }
 }

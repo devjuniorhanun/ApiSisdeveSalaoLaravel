@@ -17,7 +17,6 @@ class Funcionario extends Model
      */
     protected $fillable = [
         'companhia_id',
-        'uuid',
         'nome',
         'status',
     ];

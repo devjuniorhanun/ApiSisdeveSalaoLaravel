@@ -19,7 +19,12 @@ class CompanhiaController extends Controller
     {
         $companhia = Companhia::all();
 
-        return new CompanhiaResource($companhia);
+        if ($companhia)
+            return CompanhiaResource::collection($companhia);
+
+        return response()->json(['error' => 'Empresas não Encontradas'], 401);
+
+        //return new CompanhiaResource($companhia);
     }
 
     /**
@@ -30,7 +35,10 @@ class CompanhiaController extends Controller
     {
         $companhia = Companhia::create($request->validated());
 
-        return new CompanhiaResource($companhia);
+        if ($companhia)
+            return new CompanhiaResource($companhia);
+
+        return response()->json(['error' => 'Empresa não Cadastrada'], 401);
     }
 
     /**
@@ -38,9 +46,12 @@ class CompanhiaController extends Controller
      * @param \App\Models\Api\Cadastros\Companhia $companhia
      * @return \App\Http\Resources\Api\Cadastros\CompanhiaResource
      */
-    public function show(Request $request, Companhia $companhia)
+    public function show($id)
     {
-        return new CompanhiaResource($companhia);
+        if ($companhia = Companhia::find($id))
+            return new CompanhiaResource($companhia);
+
+        return response()->json(['error' => 'Empresa não Encontrada'], 401);
     }
 
     /**
@@ -52,7 +63,10 @@ class CompanhiaController extends Controller
     {
         $companhia->update($request->validated());
 
-        return new CompanhiaResource($companhia);
+        if ($companhia)
+            return new CompanhiaResource($companhia);
+
+        return response()->json(['error' => 'Empresa não Alterada'], 401);
     }
 
     /**
@@ -64,6 +78,9 @@ class CompanhiaController extends Controller
     {
         $companhia->delete();
 
-        return response()->noContent();
+        if ($companhia)
+            return response()->json(['sucesso' => 'Empresa excluida com Sucesso'], 200);
+
+        return response()->json(['error' => 'Empresa não Alterada'], 401);
     }
 }
