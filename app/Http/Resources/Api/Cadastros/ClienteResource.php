@@ -23,7 +23,6 @@ class ClienteResource extends JsonResource
             'telefone' => $this->telefone,
             'logo' => $this->logo,
             'status' => $this->status,
-            'softdeletes' => $this->softdeletes,
         ];
     }
 }

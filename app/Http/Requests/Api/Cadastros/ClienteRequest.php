@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Cadastros;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FuncionarioUpdateRequest extends FormRequest
+class ClienteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,12 @@ class FuncionarioUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'empresa_id' => ['required', 'integer', 'exists:empresas,id'],
-            'companhia_id' => ['required', 'integer', 'exists:companhias,id'],
-            'uuid' => ['required'],
-            'nome' => ['string', 'unique:funcionarios,nome'],
-            'status' => ['required', 'in:ATIVO,DESATIVADO'],
-            'softdeletes' => ['required'],
+            'nome' => ['string', 'unique:clientes,nome'],
+            'cpf_cnpj' => ['string', 'unique:clientes,cpf_cnpj'],
+            'rg_inscricao' => ['string', 'unique:clientes,rg_inscricao'],
+            'email' => ['email','unique:clientes,email'],
+            'telefone' => ['string'],
+            'logo' => ['string'],
         ];
     }
 }

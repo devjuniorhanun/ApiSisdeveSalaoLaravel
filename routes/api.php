@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
-use App\Http\Controllers\Api\Cadastros\CompanhiaController;
+use App\Http\Controllers\Api\Cadastros\{
+    ClienteController,
+    CompanhiaController,
+    FuncionarioController
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +24,8 @@ Route::post('/auth/registro', [AuthController::class, 'registro']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::resource('/cadastros/companhias', CompanhiaController::class);
+Route::resource('/cadastros/funcionarios', FuncionarioController::class);
+Route::resource('/cadastros/clientes', ClienteController::class);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 

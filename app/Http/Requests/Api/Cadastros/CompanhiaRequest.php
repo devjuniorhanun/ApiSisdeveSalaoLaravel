@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Cadastros;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClienteStoreRequest extends FormRequest
+class CompanhiaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,13 @@ class ClienteStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => ['string', 'unique:clientes,nome'],
-            'cpf_cnpj' => ['string', 'unique:clientes,cpf_cnpj'],
-            'rg_inscricao' => ['string', 'unique:clientes,rg_inscricao'],
-            'email' => ['email'],
+            'nome' => ['string', 'unique:companhias,nome'],
+            'latitude' => ['string'],
+            'longitute' => ['string'],
             'telefone' => ['string'],
             'logo' => ['string'],
-            'status' => ['required', 'in:ATIVO,DESATIVADO'],
-            'softdeletes' => ['required'],
+            'social_link' => ['string'],
+            'status' => ['required'],
         ];
     }
 }

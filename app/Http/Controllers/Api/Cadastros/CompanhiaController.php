@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api\Cadastros;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Cadastros\CompanhiaStoreRequest;
-use App\Http\Requests\Api\Cadastros\CompanhiaUpdateRequest;
+use App\Http\Requests\Api\Cadastros\CompanhiaRequest;
 use App\Http\Resources\Api\Cadastros\CompanhiaResource;
 use App\Models\Api\Cadastros\Companhia;
 use Illuminate\Http\Request;
@@ -23,15 +22,13 @@ class CompanhiaController extends Controller
             return CompanhiaResource::collection($companhia);
 
         return response()->json(['error' => 'Empresas não Encontradas'], 401);
-
-        //return new CompanhiaResource($companhia);
     }
 
     /**
-     * @param \App\Http\Requests\Api\Cadastros\CompanhiaStoreRequest $request
+     * @param \App\Http\Requests\Api\Cadastros\CompanhiaRequest $request
      * @return \App\Http\Resources\Api\Cadastros\CompanhiaResource
      */
-    public function store(CompanhiaStoreRequest $request)
+    public function store(CompanhiaRequest $request)
     {
         $companhia = Companhia::create($request->validated());
 
@@ -46,9 +43,10 @@ class CompanhiaController extends Controller
      * @param \App\Models\Api\Cadastros\Companhia $companhia
      * @return \App\Http\Resources\Api\Cadastros\CompanhiaResource
      */
-    public function show($id)
+    public function show(Companhia $companhia)
     {
-        if ($companhia = Companhia::find($id))
+        
+        if ($companhia)
             return new CompanhiaResource($companhia);
 
         return response()->json(['error' => 'Empresa não Encontrada'], 401);
@@ -59,7 +57,7 @@ class CompanhiaController extends Controller
      * @param \App\Models\Api\Cadastros\Companhia $companhia
      * @return \App\Http\Resources\Api\Cadastros\CompanhiaResource
      */
-    public function update(CompanhiaUpdateRequest $request, Companhia $companhia)
+    public function update(CompanhiaRequest $request, Companhia $companhia)
     {
         $companhia->update($request->validated());
 

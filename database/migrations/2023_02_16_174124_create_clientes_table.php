@@ -17,12 +17,12 @@ class CreateClientesTable extends Migration
 
         Schema::create('clientes', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('nome')->nullable()->unique();
+            $table->string('nome')->unique();
             $table->string('cpf_cnpj')->nullable()->unique();
             $table->string('rg_inscricao')->nullable()->unique();
-            $table->string('email')->nullable();
-            $table->string('telefone')->nullable();
-            $table->string('logo')->nullable();
+            $table->string('email')->unique();
+            $table->string('telefone')->unique();
+            $table->string('foto')->nullable();
             $table->enum('status', ["ATIVO","DESATIVADO"]);
             $table->softDeletes();
             $table->timestamps();

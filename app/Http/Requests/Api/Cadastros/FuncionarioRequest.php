@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Cadastros;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompanhiaStoreRequest extends FormRequest
+class FuncionarioRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,8 @@ class CompanhiaStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => ['string', 'unique:companhias,nome'],
-            'latitude' => ['string'],
-            'longitute' => ['string'],
-            'telefone' => ['string'],
-            'logo' => ['string'],
-            'social_link' => ['string'],
-            'status' => ['required'],
+            'companhia_id' => ['required', 'string'],
+            'nome' => ['string', 'unique:funcionarios,nome'],
         ];
     }
 }

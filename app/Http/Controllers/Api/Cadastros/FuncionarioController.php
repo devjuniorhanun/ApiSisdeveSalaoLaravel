@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Api\Cadastros;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Cadastros\FuncionarioStoreRequest;
-use App\Http\Requests\Api\Cadastros\FuncionarioUpdateRequest;
-use App\Http\Resources\Api\Cadastros\FuncionarioCollection;
+use App\Http\Requests\Api\Cadastros\FuncionarioRequest;
 use App\Http\Resources\Api\Cadastros\FuncionarioResource;
 use App\Models\Api\Cadastros\Funcionario;
 use Illuminate\Http\Request;
@@ -19,19 +17,25 @@ class FuncionarioController extends Controller
     public function index(Request $request)
     {
         $funcionarios = Funcionario::all();
+        if ($funcionarios)
+        return FuncionarioResource::collection($funcionarios);
 
-        return new FuncionarioCollection($funcionarios);
+    return response()->json(['error' => 'Funcionarios não Encontrados'], 401);
+
     }
 
     /**
      * @param \App\Http\Requests\Api\Cadastros\FuncionarioStoreRequest $request
      * @return \App\Http\Resources\Api\Cadastros\FuncionarioResource
      */
-    public function store(FuncionarioStoreRequest $request)
+    public function store(FuncionarioRequest $request)
     {
         $funcionario = Funcionario::create($request->validated());
 
-        return new FuncionarioResource($funcionario);
+        if ($funcionario)
+            return new FuncionarioResource($funcionario);
+
+        return response()->json(['error' => 'Funcionario não Cadastrado'], 401);
     }
 
     /**
@@ -39,21 +43,29 @@ class FuncionarioController extends Controller
      * @param \App\Models\Api\Cadastros\Funcionario $funcionario
      * @return \App\Http\Resources\Api\Cadastros\FuncionarioResource
      */
-    public function show(Request $request, Funcionario $funcionario)
+    //public function show($id)
+    public function show(Funcionario $funcionario)
     {
-        return new FuncionarioResource($funcionario);
+        if ($funcionario)
+            return new FuncionarioResource($funcionario);
+
+        return response()->json(['error' => 'Funcionario não Encontrado'], 401);
     }
 
     /**
-     * @param \App\Http\Requests\Api\Cadastros\FuncionarioUpdateRequest $request
+     * @param \App\Http\Requests\Api\Cadastros\FuncionarioRequest $request
      * @param \App\Models\Api\Cadastros\Funcionario $funcionario
      * @return \App\Http\Resources\Api\Cadastros\FuncionarioResource
      */
-    public function update(FuncionarioUpdateRequest $request, Funcionario $funcionario)
+    public function update(FuncionarioRequest $request, Funcionario $funcionario)
     {
+        
         $funcionario->update($request->validated());
 
+        if ($funcionario)
         return new FuncionarioResource($funcionario);
+
+    return response()->json(['error' => 'Funcionario não Alterado'], 401);
     }
 
     /**
@@ -65,6 +77,9 @@ class FuncionarioController extends Controller
     {
         $funcionario->delete();
 
-        return response()->noContent();
+        if ($funcionario)
+            return response()->json(['sucesso' => 'Funcionario excluido com Sucesso'], 200);
+
+        return response()->json(['error' => 'Funcionario não Alterado'], 401);
     }
 }

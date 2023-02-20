@@ -16,8 +16,6 @@ class CompanhiaResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'empresa_id' => $this->empresa_id,
-            'uuid' => $this->uuid,
             'nome' => $this->nome,
             'latitude' => $this->latitude,
             'longitute' => $this->longitute,
@@ -25,7 +23,6 @@ class CompanhiaResource extends JsonResource
             'logo' => $this->logo,
             'social_link' => $this->social_link,
             'status' => $this->status,
-            'softdeletes' => $this->softdeletes,
         ];
     }
 }

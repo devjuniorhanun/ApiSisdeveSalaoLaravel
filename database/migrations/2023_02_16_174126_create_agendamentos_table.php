@@ -17,10 +17,10 @@ class CreateAgendamentosTable extends Migration
 
         Schema::create('agendamentos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->unsignedBigInteger('companhia_id')->unsigned();
-            $table->unsignedBigInteger('funcionario_id')->unsigned();
-            $table->unsignedBigInteger('cliente_id')->unsigned();
-            $table->unsignedBigInteger('servico_id')->unsigned();
+            $table->foreignUuid('companhia_id')->references('id')->on('companhias');
+            $table->foreignUuid('funcionario_id')->references('id')->on('funcionarios');
+            $table->foreignUuid('cliente_id')->references('id')->on('clientes');
+            $table->foreignUuid('servico_id')->references('id')->on('servicos');
             $table->date('data_agendamento')->nullable();
             $table->string('horario_agendamento')->nullable();
             $table->softDeletes();

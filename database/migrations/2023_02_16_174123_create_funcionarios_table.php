@@ -17,7 +17,7 @@ class CreateFuncionariosTable extends Migration
 
         Schema::create('funcionarios', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->unsignedBigInteger('companhia_id')->unsigned();
+            $table->foreignUuid('companhia_id')->references('id')->on('companhias');
             $table->string('nome')->nullable()->unique();
             $table->enum('status', ["ATIVO","DESATIVADO"]);
             $table->softDeletes();

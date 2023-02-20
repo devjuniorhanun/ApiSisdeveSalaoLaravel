@@ -16,12 +16,9 @@ class FuncionarioResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'empresa_id' => $this->empresa_id,
-            'companhia_id' => $this->companhia_id,
-            'uuid' => $this->uuid,
+            'companhia' => $this->companhia,
             'nome' => $this->nome,
             'status' => $this->status,
-            'softdeletes' => $this->softdeletes,
         ];
     }
 }

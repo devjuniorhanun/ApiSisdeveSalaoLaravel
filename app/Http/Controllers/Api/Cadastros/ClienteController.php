@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api\Cadastros;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Cadastros\ClienteStoreRequest;
-use App\Http\Requests\Api\Cadastros\ClienteUpdateRequest;
+use App\Http\Requests\Api\Cadastros\ClienteRequest;
 use App\Http\Resources\Api\Cadastros\ClienteResource;
 use App\Models\Api\Cadastros\Cliente;
 use Illuminate\Http\Request;
@@ -13,24 +12,30 @@ class ClienteController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @return \App\Http\Resources\Api\Cadastros\ClienteCollection
+     * @return \App\Http\Resources\Api\Cadastros\ClienteResource
      */
-    public function index(Request $request)
+    public function index()
     {
         $clientes = Cliente::all();
 
-        return new ClienteResource($clientes);
+        if ($clientes)
+            return ClienteResource::collection($clientes);
+
+        return response()->json(['error' => 'Clientes não Encontrados'], 401);
     }
 
     /**
-     * @param \App\Http\Requests\Api\Cadastros\ClienteStoreRequest $request
+     * @param \App\Http\Requests\Api\Cadastros\ClienteRequest $request
      * @return \App\Http\Resources\Api\Cadastros\ClienteResource
      */
-    public function store(ClienteStoreRequest $request)
+    public function store(ClienteRequest $request)
     {
         $cliente = Cliente::create($request->validated());
 
-        return new ClienteResource($cliente);
+        if ($cliente)
+            return ClienteResource::collection($cliente);
+
+        return response()->json(['error' => 'Clientes não Encontrados'], 401);
     }
 
     /**
@@ -38,9 +43,12 @@ class ClienteController extends Controller
      * @param \App\Models\Api\Cadastros\Cliente $cliente
      * @return \App\Http\Resources\Api\Cadastros\ClienteResource
      */
-    public function show(Request $request, Cliente $cliente)
+    public function show(Cliente $cliente)
     {
-        return new ClienteResource($cliente);
+        if ($cliente)
+            return new ClienteResource($cliente);
+
+        return response()->json(['error' => 'Clientes não Encontrados'], 401);
     }
 
     /**
@@ -48,11 +56,13 @@ class ClienteController extends Controller
      * @param \App\Models\Api\Cadastros\Cliente $cliente
      * @return \App\Http\Resources\Api\Cadastros\ClienteResource
      */
-    public function update(ClienteUpdateRequest $request, Cliente $cliente)
+    public function update(ClienteRequest $request, Cliente $cliente)
     {
         $cliente->update($request->validated());
+        if ($cliente)
+            return ClienteResource::collection($cliente);
 
-        return new ClienteResource($cliente);
+        return response()->json(['error' => 'Clientes não Encontrados'], 401);
     }
 
     /**
@@ -64,6 +74,9 @@ class ClienteController extends Controller
     {
         $cliente->delete();
 
-        return response()->noContent();
+        if ($cliente)
+            return response()->json(['sucesso' => 'Cliente excluido com Sucesso'], 200);
+
+        return response()->json(['error' => 'cliente não Alterado'], 401);
     }
 }
