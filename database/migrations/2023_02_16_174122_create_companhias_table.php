@@ -23,7 +23,7 @@ class CreateCompanhiasTable extends Migration
             $table->string('telefone')->nullable();
             $table->string('logo')->nullable();
             $table->string('social_link')->nullable();
-            $table->enum('status', ["ATIVA","DESATIVADA"]);
+            $table->boolean('status')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

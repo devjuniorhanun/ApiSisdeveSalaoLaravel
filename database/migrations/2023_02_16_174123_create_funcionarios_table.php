@@ -19,7 +19,7 @@ class CreateFuncionariosTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('companhia_id')->references('id')->on('companhias');
             $table->string('nome')->nullable()->unique();
-            $table->enum('status', ["ATIVO","DESATIVADO"]);
+            $table->boolean('status')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

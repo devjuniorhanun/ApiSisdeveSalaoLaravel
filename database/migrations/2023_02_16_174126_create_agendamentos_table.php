@@ -23,6 +23,7 @@ class CreateAgendamentosTable extends Migration
             $table->foreignUuid('servico_id')->references('id')->on('servicos');
             $table->date('data_agendamento')->nullable();
             $table->string('horario_agendamento')->nullable();
+            $table->boolean('status')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

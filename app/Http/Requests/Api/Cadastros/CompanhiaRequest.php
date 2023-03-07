@@ -23,8 +23,9 @@ class CompanhiaRequest extends FormRequest
      */
     public function rules()
     {
+        //dd($this->companhia->id);
         return [
-            'nome' => ['string', 'unique:companhias,nome'],
+            'nome' => ['required', 'string', 'unique:companhias,nome'],
             'latitude' => ['string'],
             'longitute' => ['string'],
             'telefone' => ['string'],

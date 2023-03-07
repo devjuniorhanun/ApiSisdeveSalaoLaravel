@@ -21,7 +21,7 @@ class CreateServicosTable extends Migration
             $table->foreignUuid('funcionario_id')->references('id')->on('funcionarios');
             $table->string('nome_servico')->nullable();
             $table->double('valor', 10, 2)->nullable();
-            $table->enum('status', ["ATIVO","DESATIVADO"]);
+            $table->boolean('status')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });

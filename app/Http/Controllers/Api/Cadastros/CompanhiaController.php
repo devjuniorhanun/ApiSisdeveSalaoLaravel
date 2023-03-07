@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class CompanhiaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
     /**
      * @param \Illuminate\Http\Request $request
      * @return \App\Http\Resources\Api\Cadastros\CompanhiaCollection

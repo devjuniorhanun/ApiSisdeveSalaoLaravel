@@ -23,7 +23,7 @@ class CreateClientesTable extends Migration
             $table->string('email')->unique();
             $table->string('telefone')->unique();
             $table->string('foto')->nullable();
-            $table->enum('status', ["ATIVO","DESATIVADO"]);
+            $table->boolean('status')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });
